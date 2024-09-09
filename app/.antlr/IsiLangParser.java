@@ -1,4 +1,4 @@
-// Generated from f:\UFABC\Github\isilanguage-compiler\app\IsiLang.g4 by ANTLR 4.9.2
+// Generated from f:\UFABC\Github\ez-comp\app\IsiLang.g4 by ANTLR 4.9.2
  
 
 from isiExceptions import IsiSemanticException
