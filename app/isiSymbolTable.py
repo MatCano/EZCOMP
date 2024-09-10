@@ -30,6 +30,4 @@ class IsiSymbolTable:
         text=[]
         for k in self._hashTable.keys():
             text.append("Dict[{}] = {}\n".format(k, self._hashTable[k]))
-        return "".join(text)
-
-    
+        return "".join(text) 
