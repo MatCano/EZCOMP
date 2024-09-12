@@ -17,7 +17,7 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 ## Itens Opcionais
 - [x] Inserção de Operadores lógicos
 - [x] Geração de várias linguagens-alvo
-- [x] Funções novas divisão com resto, exponenciação
+- [x] Funções novas: divisão com resto, exponenciação
 - [x] É possível comentar na ezcomp 
 - [x] Temos booleano como um dado adicional
 - [x] Avaliador de expressões aritméticas 
