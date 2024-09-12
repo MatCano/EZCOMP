@@ -25,9 +25,9 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 Nosso projeto foi feito em Python utilizando o Antlr, o requisito para conseguir rodar o projeto é ter o Python até a versão 3.10, visto que utilizamos uma framework que já não há uma versão que é utilizada no python de versão mais atual. Fizemos a tradução da linguagem para python e C
 
 # Integrantes do grupo:
-Fabio Cachone- 11202131244
-Mateus Cano Brino- 11202130459
-Rennan Giaretta Pereira- 11202130677
+- Fabio Cachone- 11202131244
+- Mateus Cano Brino- 11202130459
+- Rennan Giaretta Pereira- 11202130677
 
-#Yotube:
+# Yotube:
 Finalmente, siga o link abaixo para o video que a gente fez explicando melhor como está o funcionamento e com alguns testes executados:
