@@ -1,8 +1,8 @@
 # Projeto de Compiladores (EZCOMP)
 
-Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcomp, elaborado como parte da avaliação da disciplina de Compiladores, oferecida no segundo quadrimestre de 2024 na Universidade Federal do ABC (UFABC), sob a orientação do Professor Isidro. O objetivo principal é aplicar conceitos teóricos de compilação, como análise léxica, sintática e semântica, além de geração de código, consolidando o aprendizado através da criação de uma ferramenta funcional capaz de traduzir a linguagem IsiLanguage para um código executável.
+Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcomp (mudamos o nome para ficar mais a nossa cara), elaborado como parte da avaliação da disciplina de Compiladores, oferecida no segundo quadrimestre de 2024 na Universidade Federal do ABC (UFABC), sob a orientação do Professor Isidro. O objetivo principal é aplicar conceitos teóricos de compilação, como análise léxica, sintática e semântica, além de geração de código, consolidando o aprendizado através da criação de uma ferramenta funcional capaz de traduzir a linguagem Ezcomp para um código executável.
 
-# Checklist obrigatório
+## Checklist obrigatório
 - [x] Possui 2 tipos de variáveis| Coluna 2
 - [x] Possui a estrutura If.. else
 - [x] Possui estrutura de controle while/do while
@@ -14,7 +14,7 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 - [x] Verificar se a variável foi declarada e não foi usada 
 - [x] Verificar se uma variável está sendo usada sem ter valor inicia
 
-# Itens Opcionais
+## Itens Opcionais
 - [x] Inserção de Operadores lógicos
 - [x] Geração de várias linguagens-alvo
 - [x] Funções novas divisão com resto, exponenciação
@@ -24,10 +24,10 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 
 Nosso projeto foi feito em Python utilizando o Antlr, o requisito para conseguir rodar o projeto é ter o Python até a versão 3.10, visto que utilizamos uma framework que já não há uma versão que é utilizada no python de versão mais atual. Fizemos a tradução da linguagem para python e C
 
-# Integrantes do grupo:
+## Integrantes do grupo:
 - Fabio Cachone- 11202131244
 - Mateus Cano Brino- 11202130459
 - Rennan Giaretta Pereira- 11202130677
 
-# Yotube:
+## Yotube:
 Finalmente, siga o link abaixo para o video que a gente fez explicando melhor como está o funcionamento e com alguns testes executados:
