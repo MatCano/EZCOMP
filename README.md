@@ -12,7 +12,7 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 - [x] Aceita números decimais
 - [x] Verificar se a variável já foi previamente declarada 
 - [x] Verificar se a variável foi declarada e não foi usada 
-- [x] Verificar se uma variável está sendo usada sem ter valor inicia
+- [x] Verificar se uma variável está sendo usada sem ter valor inicial
 
 ## Itens Opcionais
 - [x] Inserção de Operadores lógicos
