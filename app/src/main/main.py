@@ -19,11 +19,11 @@ def main():
 
     #print(parser._isiProgram)
 
-    print("\n\nCodigo isiLanguage compilado em Python:\n\n")
+    print("\n\n---------- ExComp compilou em Python ----------\n")
 
     print(parser.generatePyCode(outputname+".py"))
 
-    print("\n\nCodigo isiLanguage compilado em C:\n\n")
+    print("\n\n---------- ExComp compilou em C ----------\n")
 
     print(parser.generateCCode(outputname+".c"))
 

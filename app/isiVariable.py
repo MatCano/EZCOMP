@@ -1,6 +1,5 @@
 from isiSymbol import IsiSymbol
 
-
 class IsiVariable(IsiSymbol):
 
     NUMBER = 0
@@ -44,18 +43,14 @@ class IsiVariable(IsiSymbol):
     def __str__(self):
         return "IsiVariable [name = {}, type = {}, value = {}, used = {}]".format(self.name, self.type, self.value, self.used)
 
-
-    # avaliar se isso faz sentido, dado que em python nao declaramos tipos?
     def generatePythonCode(self, fIndent=""):
         
-        # deixando apenas como comentario, porque em python nao temos um trecho especifico para declarar
-        # variaveis, muito menos seus tipos
-
-        # avaliar deixar como type hint qndo possivel?
         if (self.type == self.NUMBER):
             str = "#double"
+        elif (self.type == self.BOOL):
+            str = "#boolean"
         else:
-            str = "#String"
+            str = "#string"
 
         return fIndent + str + " " + self.name + ";\n"
 

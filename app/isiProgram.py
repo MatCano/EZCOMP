@@ -1,5 +1,3 @@
-# Definicao da classe que ira representar o programa em memoria
-
 from token import NUMBER
 from isiVariable import IsiVariable
 from isiSymbolTable import IsiSymbolTable
@@ -10,12 +8,11 @@ class AbstractCommand():
     def generatePythonCode(self, fIndent=""):
         pass
 
-
 class ReadCommand(AbstractCommand):
 
     def __init__(self, id: str, var: IsiVariable):
         self._identificador = id
-        self._var = var   # util para gerar codigo em C / Java, ja que sera necessario definir tipo de read
+        self._var = var
 
     def __str__(self):
         return "Read Command[value = {}]\n".format(self._identificador)
@@ -33,10 +30,9 @@ class ReadCommand(AbstractCommand):
         if (self._var.getType() == IsiVariable.NUMBER):
             return fIndent + "scanf(\"%f\", &{});\n".format(self._identificador)
         elif (self._var.getType() == IsiVariable.BOOL):
-            return fIndent + "scanf(\"%d\", &{});\n".format(self._identificador)  # ler como int, pois C nao tem booleano!
+            return fIndent + "scanf(\"%d\", &{});\n".format(self._identificador)
         else:
-            return fIndent + "scanf(\"%s\", &{});\n".format(self._identificador)  # avaliar necessidade do operador & 
-        
+            return fIndent + "scanf(\"%s\", &{});\n".format(self._identificador)         
 
 class WriteCommand(AbstractCommand):
 
@@ -53,16 +49,11 @@ class WriteCommand(AbstractCommand):
 
     def generateCCode(self, fIndent=""):
         if (self._type == IsiVariable.NUMBER):
-            #print("transpilando escrita de numero para C")
             return fIndent + "printf(\"%f\", {});\n".format(self._identificador)
         elif (self._type == IsiVariable.BOOL):
-            #print("transpilando escrita de bool para C")
-            return fIndent + "printf(\"%d\", {});\n".format(self._identificador)  # imprimir como int, pois C nao tem booleano!
+            return fIndent + "printf(\"%d\", {});\n".format(self._identificador)
         else:
-            #print("transpilando escrita de string para C")
             return fIndent + "printf({});\n".format(self._identificador)
-    
-
 
 class AttribCommand(AbstractCommand):
 
@@ -89,11 +80,10 @@ class AttribCommand(AbstractCommand):
             return fIndent + self._identificador + " = " + "(int){}%(int){};\n".format(exprClean.split("%")[0], exprClean.split("%")[1])
         elif(exprClean.find("**") > -1):
             return fIndent + self._identificador + " = " + "pow({}, {});\n".format(exprClean.split("**")[0], exprClean.split("**")[1])
-        elif(exprClean.find("\"") > -1):  # atrib de strings, precisamos adaptar o uso de strcopy em C
+        elif(exprClean.find("\"") > -1):
             return fIndent + "strcpy({}, {});\n".format(self._identificador, exprClean)
         else:
             return fIndent + self._identificador + " = " + exprClean + ";\n"
-
 
 class DecisionCommand(AbstractCommand):
 
@@ -117,38 +107,29 @@ class DecisionCommand(AbstractCommand):
         indent = "    "
 
         decisiontxt.append("{}if({}):\n".format(fIndent, self._condition))
-        #print("len de fIndent no if ({})= {}".format(self._condition, len(fIndent)))
         for x in self._trueList:
-            #decisiontxt.append(fIndent + indent + x.generatePythonCode())
             decisiontxt.append(x.generatePythonCode(fIndent + indent))
 
         
         if(len(self._falseList ) != 0):
-            #print("len de fIndent no else ({})= {}".format(self._condition, len(fIndent)))
             decisiontxt.append("{}else:\n".format(fIndent))
             for x in self._falseList:
-                #decisiontxt.append(fIndent + indent + x.generatePythonCode())
                 decisiontxt.append(x.generatePythonCode(fIndent + indent))
 
         return "".join(decisiontxt)
 
     def generateCCode(self, fIndent=""):
-        
+       
         decisiontxt = []
         indent = "    "
 
         decisiontxt.append("{}if({}){{\n".format(fIndent, self._condition))
-        #print("len de fIndent no if ({})= {}".format(self._condition, len(fIndent)))
         for x in self._trueList:
-            #decisiontxt.append(fIndent + indent + x.generatePythonCode())
             decisiontxt.append(x.generateCCode(fIndent + indent))
-
         
         if(len(self._falseList ) != 0):
-            #print("len de fIndent no else ({})= {}".format(self._condition, len(fIndent)))
             decisiontxt.append("{}}}else{{\n".format(fIndent))
             for x in self._falseList:
-                #decisiontxt.append(fIndent + indent + x.generatePythonCode())
                 decisiontxt.append(x.generateCCode(fIndent + indent))
 
         decisiontxt.append("{}}}\n".format(fIndent))
@@ -160,8 +141,7 @@ class WhileCommand(AbstractCommand):
 
     def __init__(self, condition : str, clist):
         self._condition = condition
-        self._cmdList  = clist
-        
+        self._cmdList  = clist        
 
     def __str__(self):
         clistText = [x.__str__() for x in self._cmdList]
@@ -177,11 +157,9 @@ class WhileCommand(AbstractCommand):
         whiletxt.append("{}while({}):\n".format(fIndent, self._condition))
 
         for x in self._cmdList:
-            #whiletxt.append(fIndent + indent + x.generatePythonCode())
             whiletxt.append(x.generatePythonCode(fIndent + indent))
 
         return "".join(whiletxt)
-
 
     def generateCCode(self, fIndent=""):
 
@@ -192,14 +170,11 @@ class WhileCommand(AbstractCommand):
         whiletxt.append("{}while({}){{\n".format(fIndent, self._condition))
 
         for x in self._cmdList:
-            #whiletxt.append(fIndent + indent + x.generatePythonCode())
             whiletxt.append(x.generateCCode(fIndent + indent))
 
         whiletxt.append("{}}}\n".format(fIndent))
 
-        return "".join(whiletxt)
-
-        
+        return "".join(whiletxt)        
 
 class IsiProgram():
 
@@ -207,7 +182,6 @@ class IsiProgram():
         self._varTable                  = IsiSymbolTable()
         self._comandos: AbstractCommand = []
         self._name                      = None
-
 
     def getVarTable(self):
         return self._varTable
@@ -237,12 +211,10 @@ class IsiProgram():
     def generatePyTarget(self, outputname="stdOutput.py"):
 
         codigoTranspilado = []
-        # para indentar corretamente o codigo
         indent = "    "
 
         codigoTranspilado.append("def main():\n\n")
 
-        # talvez precise passar a indentacao para o generate...
         for x in self._varTable._hashTable.values():
             codigoTranspilado.append( x.generatePythonCode(indent))
 
@@ -254,10 +226,9 @@ class IsiProgram():
 
         resultado = "".join(codigoTranspilado)
 
-        # cria arquivo com o codigo final
         filename = "results/" + outputname
 
-        print("Resultado salvo em: {}\n\n".format(filename))
+        print("Arquivo compilado: {}\n\n".format(filename))
         os.makedirs(os.path.dirname(filename), exist_ok=True)
 
         with open(filename, "w") as f:
@@ -268,7 +239,6 @@ class IsiProgram():
     def generateCTarget(self, outputname="stdOutput.c"):
 
         codigoTranspilado = []
-        # para indentar corretamente o codigo            
         indent = "    "
 
         codigoTranspilado.append("#include <stdio.h>\n")
@@ -279,7 +249,6 @@ class IsiProgram():
         codigoTranspilado.append(indent + "int True = 1;\n")
         codigoTranspilado.append(indent + "int False = 1;\n\n")
 
-        # talvez precise passar a indentacao para o generate...
         for x in self._varTable._hashTable.values():
             codigoTranspilado.append( x.generateCCode(indent))
 
@@ -293,10 +262,9 @@ class IsiProgram():
 
         resultado = "".join(codigoTranspilado)
 
-        # cria arquivo com o codigo final
         filename = "results/" + outputname
 
-        print("Resultado salvo em: {}\n\n".format(filename))
+        print("Arquivo compilado: {}\n\n".format(filename))
         os.makedirs(os.path.dirname(filename), exist_ok=True)
 
         with open(filename, "w") as f:

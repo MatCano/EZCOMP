@@ -1,5 +1,3 @@
-# definicao da hashtable de simbolos, ou dict, para isilang compiler
-
 import isiSymbol
 from isiVariable import IsiVariable
 
@@ -12,7 +10,6 @@ class IsiSymbolTable:
         self._hashTable[symbol.getName()] = symbol
     
     def exists(self, symbolname: str):
-        #return symbolname in self._hashTable.keys()
         return (self._hashTable.get(symbolname, None) != None)
 
     def setUsed(self, varName):
@@ -24,7 +21,7 @@ class IsiSymbolTable:
     def checkUnused (self):
         for k in self._hashTable.keys():
             if not self._hashTable[k].getUsed():
-                print("Warning: unused variable {}".format(k))
+                print("AVISO: variável '{}' não está sendo usada".format(k))
 
     def __str__(self):
         text=[]

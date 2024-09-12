@@ -1,80 +1,52 @@
 programa
 
-  numero a, b, c, d;
-  texto  t1, t2;
-  booleano x;
+  numero n, r, x, y, z;
+  texto  s1, s2;
+  booleano b1, b2;
 
-  x = verdadeiro;
+  b1 = verdadeiro;
 
-  escreva("Escreva o numero a:\n");
-  leia(a);
-  escreva("Escreva o numero b");
-  leia(b);
-  escreva("Escreva o numero d");
-  leia(d);
+  s1 = "\nx maior ou igual que y";
+  s2 = "\nx menor que y";
 
-  d = d ** 2;
-  escreva("d ao quadrado:");
-  escreva(d);
+  escreva("\nInsira um numero X (diferente de zero):");
+  leia(x);
+  enquanto(x==0){ //funcao while
+   escreva("\nNumero invalido!!!\n");
+   escreva("\nInsira um numero X (diferente de zero):");
+   leia(x);
+  }
+  escreva("\nInsira um numero Y");
+  leia(y);
+  escreva("\nInsira um numero Z");
+  leia(z);
 
-  d = d % 3;
-  escreva("d resto da divisao por 3:");
-  escreva(d);
+  z = z / 11;
+  escreva("\nZ dividido por 11:");
+  escreva(z); //dependendo do resultado, vai dar um decimal
 
-  t1 = "Meu Teste";
-  a = 1 + 2 * a;
-  c = 5.755;
-
-  escreva(t1);
-  escreva("Ola Mundo");
-
-  se(x == verdadeiro){
-      escreva(t1);
-      se(a < c){
-         escreva("a menor que c!");
-      }
-      senao{
-         escreva("c maior igual a A....");
-      }
+  se(x >= y){ //funcao if
+   escreva(s1);
+   b1 = verdadeiro;
+  }
+  senao{ //funcao else
+   escreva(s2);
+   b1 = falso;
   }
 
-
-  se ( a > b ) {
-     escreva (a);
+  se(b1 == verdadeiro){ //calcular resto de divisao
+   r = x % y;
+   escreva("\nResto da divisao de x por y:");
+   escreva(r);
+   escreva("\n\nEzComp v0.2.7 2024");
   }
-  senao {
-     escreva (b);
+  senao{ /*calcular exponenciacao*/
+   escreva("\nInsira um numero N, que sera expoente de X");
+   leia(n);
+   x = x ** n;;
+   escreva("\nX elevado a N:");
+   escreva(x);
+   escreva("\n\nEzComp v0.2.7 2024");
   }
-
-  enquanto (a<b) {
-     a = a + 1;
-     escreva(a);
-
-     se(a<b){
-         escreva("oi");
-     }
-     senao{
-         escreva("oi");
-     }
-
-     se(a > c){
-       escreva("a maior que c!");
-     }
-     senao{
-         se(t1 == "oi"){
-            escreva(t1);
-         }
-         escreva("teste");
-
-     }
-     enquanto(a < b){
-         a = a + 1;
-         escreva(b);
-     }   
-
-  }
-
-   
-  
 
 fimprog;

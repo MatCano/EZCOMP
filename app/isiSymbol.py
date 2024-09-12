@@ -1,7 +1,3 @@
-# Definicao de simbolos utilizada pelo compilador de IsiLang
-
-
-
 class IsiSymbol:
     
     def __init__(self, nome):

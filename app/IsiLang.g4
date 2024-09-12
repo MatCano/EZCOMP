@@ -37,12 +37,10 @@ def generateCCode(self, outputname="stdOutput.c"):
 
 prog	: 
 {
-# comandos em python executados antes do inicio do programa
-#self._symbolTable = IsiSymbolTable()
 self._isiProgram = IsiProgram()
 self._readIDCommand = None
 self._curThread = []
-self._stack = []   # pseudo stack usando lista, muito lento! Evoluir para uma implementacao melhor de pilha
+self._stack = []
 self._exprID = None
 self._exprContent = None
 self._exprDecision = None
@@ -57,7 +55,6 @@ self._elseCheckStack = []
 }
     'programa' decl bloco  'fimprog;'
 {
-# comandos em python executados no fim do programa
 self._isiProgram._varTable.checkUnused()
 self._isiProgram.setCommands(self._stack.pop())
 }
@@ -71,9 +68,7 @@ declaravar :  tipo ID {
 symbol = IsiVariable(self._ctx.getChild(-1), self.getTipo(), None, False)
 
 if(self._isiProgram._varTable.exists(str(symbol.getName())) == False):
-     #print("Simbolo adicionado: {}".format(symbol.getName()))
      self._isiProgram._varTable.add(symbol)
-     #print("symbol table:{}".format(self._isiProgram._varTable._hashTable))
 else:
      raise IsiSemanticException("Erro Semantico! A variavel {} ja existe, e nao pode ser declarada novamente!".format(symbol.getName()))
                     }
@@ -82,9 +77,7 @@ else:
 symbol = IsiVariable(self._ctx.getChild(-1), self.getTipo(), None, False)
 
 if(self._isiProgram._varTable.exists(str(symbol.getName())) == False):
-     #print("Simbolo adicionado: {}".format(symbol.getName()))
      self._isiProgram._varTable.add(symbol)
-     #print("symbol table:{}".format(self._isiProgram._varTable._hashTable))
 else:
      raise IsiSemanticException("Erro Semantico! A variavel {} ja existe, e nao pode ser declarada novamente!".format(symbol.getName()))
 }
@@ -160,7 +153,6 @@ self._stack[-1].append(cmd)
 
 invalidcmd : ID 
 {
-#print("Comando nao reconhecido, subindo exception...")
 raise IsiSemanticException("Erro Semantico! Comando {} nao reconhecido ou mal utilizado!".format(self._ctx.getChild(-1).getText()))   
 }            AP(ID | NUMBER | expr | termo | TEXT) FP SC
           ;
@@ -173,13 +165,13 @@ invalidcmdselecao : invalidcmdselecaocond  | invalidcmdselecaocmdv | invalidcmds
                   ;
 
 invalidcmdselecaocmdv : 'se' AP ID OPREL termo FP ACH FCH{raise IsiSemanticException("Erro Semantico! Comando de selecao sem comando para condicao == Verdadeiro !!")} ('senao' ACH (cmd)+ FCH)
-                  ;
+                      ;
 
 invalidcmdselecaocmdf : 'se' AP ID OPREL termo FP ACH (cmd)+ FCH 'senao' ACH FCH{raise IsiSemanticException("Erro Semantico! Comando de selecao, com uso de SENAO, sem comando para condicao == Falso !!")}
-                  ;
+                      ;
 
 invalidcmdselecaocond : 'se' AP (TEXT | BOOL | NUMBER | ID)? FP{raise IsiSemanticException("Erro Semantico! Comando de selecao sem condicao de verificacao, ou condicao mal formulada!!")} ACH (cmd)+ FCH ('senao' ACH (cmd)+ FCH)
-                  ;
+                      ;
 
 invalidcmdenquanto : invalidcmdenquantocond | invalidcmdenquantocmd
                    ;
@@ -189,7 +181,6 @@ invalidcmdenquantocond :  'enquanto' AP (TEXT | BOOL | NUMBER | ID)? FP{raise Is
 
 invalidcmdenquantocmd :   'enquanto' AP ID OPREL termo FP ACH FCH {raise IsiSemanticException("Erro Semantico! Comando Enquanto sem utilizacao de comandos internos, looping sem nenhuma utilidade!!")}
                       ;
-
 
 cmdattrib	:  ID {
 varName = self._ctx.getChild(-1).getText()
@@ -221,6 +212,12 @@ self._exprDecision += self._ctx.getChild(-1).getText()
                     termo{
 self._exprDecision += self._ctx.getChild(-1).getText()
 }
+                    (OPLOG {
+self._exprDecision += self._ctx.getChild(-1).getText()
+}
+termo {
+self._exprDecision += self._ctx.getChild(-1).getText()
+})*
                     FP
                     ACH{
 self._exprDecisionStack.append(self._exprDecision)
@@ -269,6 +266,12 @@ self._exprDecision += self._ctx.getChild(-1).getText()
                     termo{
 self._exprDecision += self._ctx.getChild(-1).getText()
 }
+                    (OPLOG {
+self._exprDecision += self._ctx.getChild(-1).getText()
+}
+termo {
+self._exprDecision += self._ctx.getChild(-1).getText()
+})*
                     FP
                     ACH{
 self._exprDecisionStack.append(self._exprDecision)
@@ -289,6 +292,10 @@ expr		:  termo (
 self._exprContent += self._ctx.getChild(-1).getText() 
                   }
 	            termo 
+	            | OPLOG {
+self._exprContent += self._ctx.getChild(-1).getText() 
+                  }
+	            termo
 	            )*
 			;
 
@@ -326,7 +333,6 @@ raise IsiSemanticException("Erro Semantico! Palavra reservada SENAO utilizada er
             ;
 
 
-
 AP	: '('
 	;
 
@@ -340,7 +346,7 @@ OP	: '+' | '-' | '*' | '/' | '**' | '//' | '%'
 	;
 
 ATTR : '='
-	 ;
+	;
 
 VIR  : ','
      ;
@@ -351,8 +357,10 @@ ACH  : '{'
 FCH  : '}'
      ;
 
-
 OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
+      ;
+
+OPLOG : '&&' | '||'
       ;
 
 BOOL : 'verdadeiro' | 'falso'
@@ -367,8 +375,11 @@ NUMBER	: [0-9]+ ('.' [0-9]+)?
 TEXT : '"' (~["])* '"'
     ;
 
-NOTCMD : [a-z] ([a-z])*
+WS	: (' ' | '\t' | '\n' | '\r') -> skip
      ;
 
-WS	: (' ' | '\t' | '\n' | '\r') -> skip
+MLCOMMENT : ('/*' .*? '*/') -> skip
+     ;
+
+SLCOMMENT: ('//' ~[\r\n]*)  -> skip
      ;
