@@ -1,0 +1,52 @@
+programa
+
+  numero n, r, x, y, z;
+  texto  s1, s2;
+  booleano b1, b2;
+
+  b1 = verdadeiro;
+
+  s1 = "\nx maior ou igual que y";
+  s2 = "\nx menor que y";
+
+  escreva("\nInsira um numero X (diferente de zero):");
+  leia(x);
+  enquanto(x==0){ //funcao while
+   escreva("\nNumero invalido!!!\n");
+   escreva("\nInsira um numero X (diferente de zero):");
+   leia(x);
+  }
+  escreva("\nInsira um numero Y");
+  leia(y);
+  escreva("\nInsira um numero Z");
+  leia(z);
+
+  z = z / 11;
+  escreva("\nZ dividido por 11:");
+  escreva(z); //dependendo do resultado, vai dar um decimal
+
+  se(x >= y){ //funcao if
+   escreva(s1);
+   b1 = verdadeiro;
+  }
+  senao{ //funcao else
+   escreva(s2);
+   b1 = falso;
+  }
+
+  se(b1 == verdadeiro){ //calcular resto de divisao
+   r = x % y;
+   escreva("\nResto da divisao de x por y:");
+   escreva(r);
+   escreva("\n\nEzComp v0.2.7 2024");
+  }
+  senao{ /*calcular exponenciacao*/
+   escreva("\nInsira um numero N, que sera expoente de X");
+   leia(n);
+   x = x ** n;;
+   escreva("\nX elevado a N:");
+   escreva(x);
+   escreva("\n\nEzComp v0.2.7 2024");
+  }
+
+fimprog;
