@@ -1,6 +1,6 @@
 # Projeto de Compiladores (EZCOMP)
 
-Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcomp (mudamos o nome para ficar mais a nossa cara), elaborado como parte da avaliação da disciplina de Compiladores, oferecida no segundo quadrimestre de 2024 na Universidade Federal do ABC (UFABC), sob a orientação do Professor Isidro. O objetivo principal é aplicar conceitos teóricos de compilação, como análise léxica, sintática e semântica, além de geração de código, consolidando o aprendizado através da criação de uma ferramenta funcional capaz de traduzir a linguagem Ezcomp para um código executável.
+Este projeto consiste no desenvolvimento de um compilador para a linguagem Isilaguage, elaborado como parte da avaliação da disciplina de Compiladores, oferecida no segundo quadrimestre de 2024 na Universidade Federal do ABC (UFABC), sob a orientação do Professor Isidro. O objetivo principal é aplicar conceitos teóricos de compilação, como análise léxica, sintática e semântica, além de geração de código, consolidando o aprendizado através da criação de uma ferramenta funcional capaz de traduzir a linguagem Isilaguage para um código executável.
 
 ## Checklist obrigatório
 - [x] Possui 2 tipos de variáveis
@@ -31,3 +31,4 @@ Nosso projeto foi feito em Python utilizando o Antlr, o requisito para conseguir
 
 ## Yotube:
 Finalmente, siga o link abaixo para o video que a gente fez explicando melhor como está o funcionamento e com alguns testes executados:
+- https://youtu.be/w1FyZzfyC_8

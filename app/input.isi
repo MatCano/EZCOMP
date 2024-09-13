@@ -41,9 +41,9 @@ programa
    escreva("\n\nEzComp v0.2.7 2024");
   }
   senao{ /*calcular exponenciacao*/
-   escreva("\nInsira um numero N, que sera expoente de X");
+   escreva("\nInsira um numero N, que sera expoente de X:");
    leia(n);
-   x = x ** n;;
+   x = x ** n;
    escreva("\nX elevado a N:");
    escreva(x);
    escreva("\n\nEzComp v0.2.7 2024");
