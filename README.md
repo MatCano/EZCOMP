@@ -22,7 +22,7 @@ Este projeto consiste no desenvolvimento de um compilador para a linguagem Ezcom
 - [x] Temos booleano como um dado adicional
 - [x] Avaliador de expressões aritméticas 
 
-Nosso projeto foi feito em Python utilizando o Antlr, o requisito para conseguir rodar o projeto é ter o Python até a versão 3.10, visto que utilizamos uma framework (Pyside2)que já não há uma versão que é utilizada no python de versão mais atual. Fizemos a tradução da linguagem para python e C
+Nosso projeto foi feito em Python utilizando o Antlr, o requisito para conseguir rodar o projeto é ter o Python até a versão 3.10, visto que utilizamos uma framework (Pyside2) no qual no tem suporte para versões atualizadas do python. Fizemos a tradução da linguagem para python e C
 
 ## Integrantes do grupo:
 - Fabio Cachone- 11202131244
